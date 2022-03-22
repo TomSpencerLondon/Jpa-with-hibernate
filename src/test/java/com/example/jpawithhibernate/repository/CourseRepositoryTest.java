@@ -1,8 +1,14 @@
-package com.example.jpawithhibernate;
+package com.example.jpawithhibernate.repository;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import com.example.jpawithhibernate.JpaWithHibernateApplication;
+import com.example.jpawithhibernate.entity.Course;
+import com.example.jpawithhibernate.entity.Review;
+import com.example.jpawithhibernate.repository.CourseRepository;
+import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -20,6 +26,9 @@ class CourseRepositoryTest {
 
   @Autowired
   CourseRepository repository;
+
+  @Autowired
+  EntityManager em;
 
   @Test
   @DirtiesContext
@@ -55,7 +64,21 @@ class CourseRepositoryTest {
   @Test
   @DirtiesContext
   public void playWithEntityManager() {
-//    repository.playWithEntityManager();
+    repository.playWithEntityManager();
+  }
+
+  @Test
+  @Transactional
+  public void retrieveReviewsForCourse() {
+    Course course = repository.findById(10001L);
+    logger.info("{}",course.getReviews());
+  }
+
+  @Test
+  @Transactional
+  public void retrieveCourseForReview() {
+    Review review = em.find(Review.class, 50001L);
+    logger.info("{}",review.getCourse());
   }
 
 }

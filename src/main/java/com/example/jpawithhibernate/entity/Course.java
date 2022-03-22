@@ -1,13 +1,17 @@
-package com.example.jpawithhibernate;
+package com.example.jpawithhibernate.entity;
 
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -26,6 +30,12 @@ public class Course {
 
   @Column(nullable = false)
   private String name;
+
+  @OneToMany(mappedBy="course")
+  private List<Review> reviews = new ArrayList<>();
+
+  @ManyToMany(mappedBy="courses")
+  private List<Student> students = new ArrayList<>();
 
   @UpdateTimestamp
   private LocalDateTime lastUpdatedDate;
@@ -47,6 +57,29 @@ public class Course {
   public void setName(String name) {
     this.name = name;
   }
+
+
+  public List<Review> getReviews() {
+    return reviews;
+  }
+
+  public void addReview(Review review) {
+    this.reviews.add(review);
+  }
+
+  public void removeReview(Review review) {
+    this.reviews.remove(review);
+  }
+
+  public List<Student> getStudents() {
+    return students;
+  }
+
+  public void addStudent(Student student) {
+    this.students.add(student);
+  }
+
+
 
   public Long getId() {
     return id;

@@ -1,5 +1,6 @@
 package com.example.jpawithhibernate;
 
+import com.example.jpawithhibernate.entity.Course;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
