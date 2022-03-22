@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = JpaWithHibernateApplication.class)
-public class CourseRepositoryTest {
+class CourseRepositoryTest {
 
   private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -22,6 +22,7 @@ public class CourseRepositoryTest {
   CourseRepository repository;
 
   @Test
+  @DirtiesContext
   public void findById_basic() {
     Course course = repository.findById(10001L);
     assertEquals("JPA in 50 Steps", course.getName());
@@ -54,7 +55,7 @@ public class CourseRepositoryTest {
   @Test
   @DirtiesContext
   public void playWithEntityManager() {
-    repository.playWithEntityManager();
+//    repository.playWithEntityManager();
   }
 
 }
